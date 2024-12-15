@@ -19,6 +19,5 @@ pipeline {
                 bat 'npm run build'
             }
         }
-        }
     }
 } 
