@@ -40,5 +40,6 @@ pipeline {
             steps {
                 bat 'docker run -d -p 80:80 --name tp-devops youssef003/tp-devops:1.0'
             }
+        }
     }
 } 
