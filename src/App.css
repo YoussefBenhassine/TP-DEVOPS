@@ -36,3 +36,92 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+  background-color: #00796b;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  color: #00796b;
+  margin-bottom: 1rem;
+}
+
+.section p {
+  line-height: 1.6;
+}
+
+.section ul {
+  padding-left: 1.5rem;
+}
+
+.section li {
+  margin-bottom: 0.5rem;
+}
+
+/* Call-to-Action Section */
+.cta-section {
+  text-align: center;
+  background-color: #e0f2f1;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.cta-button {
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #004d40;
+}
+
+/* Footer Styles */
+.footer {
+  text-align: center;
+  background-color: #00796b;
+  color: #fff;
+  padding: 1rem;
+}
