@@ -1,10 +1,3 @@
-// Jenkinsfile
-def appName = "tp-devops"
-def dockerHubRepo = "youssef003/${appName}"
-def dockerImage = "${dockerHubRepo}:latest"
-
-def buildNode = "node:16-alpine"
-
 pipeline {
     agent any 
 
@@ -16,14 +9,13 @@ pipeline {
         }
 
         stage('Install Dependencies') {
-            agent { docker { image buildNode } }
             steps {
-                sh 'npm install'
+                sh 'sudo apt install npm'
+                sh 'npm test '
             }
         }
 
         stage('Build Application') {
-            agent { docker { image buildNode } }
             steps {
                 sh 'npm run build'
             }
@@ -31,29 +23,25 @@ pipeline {
 
         stage('Dockerize Application') {
             steps {
-                sh 'docker build -t ${dockerImage} .'
+                sh 'docker build -t tp-devops:1.0 .'
             }
         }
 
         stage('Push to DockerHub') {
             steps {
-                withDockerRegistry([ credentialsId: 'dockerhub-credentials', url: '' ]) {
-                    sh 'docker push ${dockerImage}'
+                withCredentials([usernamePassword(credentialsId: 'docker_cred', passwordVariable: 'DOCKERHUB_PASSWORD', usernameVariable : 'DOCKERHUB_USERNAME')]){
+                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker tag tp-devops:1.0 youssef003/tp-devops:1.0'
+                    sh 'docker push youssef003/tp-devops:1.0'
+                    sh 'docker logout'
                 }
             }
         }
 
         stage('Deploy Docker Container') {
             steps {
-                sh 'docker run -d -p 80:80 --name ${appName} ${dockerImage}'
+                sh 'docker run -d -p 80:80 --name tp-devops youssef003/tp-devops:1.0'
             }
-        }
-    }
-
-    post {
-        always {
-            sh 'docker rm -f ${appName} || true'
-            sh 'docker rmi ${dockerImage} || true'
         }
     }
 } 
